@@ -20,3 +20,4 @@ def radioReset():
 	radio.config(Length=251, channel=53, power=4)
 
 
+#This python script should be flashed directly to the microbit you're using
