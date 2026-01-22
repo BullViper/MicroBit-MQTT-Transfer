@@ -20,3 +20,6 @@ while True:
 time.sleep(4)
 client.disconnect() #disconnect
 client.loop_stop() #stop loop
+
+#This python script should be running on your raspberry pi (or whatever you decide to use as a message broker)
+#You'll want to change the COM port to whichever usb port you're using as a bluetooth receiver, if external
