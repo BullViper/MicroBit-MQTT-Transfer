@@ -21,3 +21,6 @@ time.sleep(2)
 time.sleep(4)
 client.disconnect() #disconnect
 client.loop_stop() #stop loop
+
+
+#This code is for your client for subscribing to your mqtt broker
