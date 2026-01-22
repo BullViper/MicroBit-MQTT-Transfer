@@ -2,7 +2,7 @@
 This project contains code that uses an MQTT (Message Queue Telemetry Transport) framework to send messages from microbits
 
 
-Some code from external projects has been utilized in order to facilitate this pipeline. The code is provided here along with appropriate licenses. Links to the other projects are included here.
+Some code from external projects has been utilized in order to facilitate this pipeline. The code is provided here along with appropriate licenses. Links to the other projects/products used are included here.
 
 Links: 
 
