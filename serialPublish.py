@@ -16,9 +16,6 @@ client.loop_start() #start loop to process received messages
 print("subscribing ")
 client.subscribe("CSC548/microbit")#subscribe
 time.sleep(2)
-#print("publishing ")
-#client.publish("house/bulb1","on")#publish
-time.sleep(4)
 client.disconnect() #disconnect
 client.loop_stop() #stop loop
 
