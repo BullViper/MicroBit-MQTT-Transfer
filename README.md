@@ -13,41 +13,40 @@ https://mqtt.org/
 https://pypi.org/project/paho-mqtt/
 
 
-This code functions as a template for creating a sensor network with microbits (or any other BLE (Bluetooth Low Energy) sensor. I used microbits for this example.
+This code functions as a template for creating a sensor network with microbits. This can theoretically be modified to allow any other radio-based messages to be transmitted and recorded.
 The network functions as follows:
 
 ```mermaid
 flowchart LR
 
-    subgraph Edge["Edge Device"]
-        BLE["BLE Sensor<br/>Bluetooth Low Energy<br/>microbit"]
+    subgraph Edge["Edge Devices"]
+        TX["Radio Timer Sender<br/>micro:bit<br/>MicroPython"]
+        RX["Radio Receiver<br/>micro:bit<br/>MicroPython / MakeCode"]
     end
 
     subgraph Gateway["Gateway"]
-        Bridge["Protocol Bridge<br/>BLE UART → UDP<br/>Node.js · bbowl"]
+        Serial["USB Serial Bridge<br/>pySerial<br/>PC"]
     end
 
     subgraph Messaging["Messaging Layer"]
-        SN["MQTT-SN Gateway"]
-        Broker["MQTT Broker<br/>TCP<br/>mosquitto RSMB"]
+        Broker["MQTT Broker<br/>TCP<br/>mosquitto (test.mosquitto.org)"]
     end
 
     subgraph App["Application"]
-        Sub["MQTT Subscriber<br/>paho"]
+        Pub["Serial → MQTT Publisher<br/>Python · paho"]
+        Sub["MQTT Subscriber<br/>Python · paho"]
     end
 
     subgraph Storage["Storage"]
-        File["Text File Storage"]
+        File["Text / Log File"]
     end
 
-    BLE -->|BLE| Bridge
-    Bridge -->|UDP| SN
-    SN -->|MQTT-SN| Broker
+    TX -->|micro:bit Radio| RX
+    RX -->|USB Serial| Serial
+    Serial -->|Raw Text| Pub
+    Pub -->|MQTT TCP| Broker
     Broker -->|MQTT TCP| Sub
     Sub -->|Append| File
 
-
 ```
-
-In my case, I ran the bbowl js app and a paho publisher on a raspberry pi. The raspberry pi was responsible for handling the ble uart to udp conversion and subsequent mqtt-sn transmission. Mosquitto RSMB received the udp on another raspberry pi and converted it to TCP for regular MQTT transmission. Another PC running a paho subscriber received the MQTT messages and wrote them to a textfile on receipt. The code provided here should be enough to reproduce the project.
 
